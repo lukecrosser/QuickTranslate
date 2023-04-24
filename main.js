@@ -1,17 +1,36 @@
 const { app, BrowserWindow, globalShortcut, clipboard, ipcMain } = require('electron');
 const robot = require('robotjs');
+const fetch = require('node-fetch');
 
 
 try {
   require('electron-reloader')(module);
 } catch (_) {}
 
+function getMousePosition() {
+  const mousePos = robot.getMousePos();
+  return { x: mousePos.x, y: mousePos.y };
+}
 
 let win;
 
 //close button
 ipcMain.on('close-app', () => {
   win.close();
+});
+
+// Add this code after the 'close-app' listener in main.js
+let targetLanguage = 'en';
+
+ipcMain.on('language-selected', (_, language) => {
+  targetLanguage = language;
+});
+
+ipcMain.on('retranslate', async (_, text) => {
+  if (text) {
+    const translatedText = await translateText(text, 'auto', targetLanguage);
+    win.webContents.send('displayText', translatedText);
+  }
 });
 
 app.disableHardwareAcceleration();
@@ -58,27 +77,41 @@ async function translateText(inputText, from, to) {
     }
 }
 
+
+
+
 app.whenReady().then(() => {
     createWindow();
+
   
+    
     const shortcut = 'Control+Q';
   
     globalShortcut.register(shortcut, async () => {
       clipboard.writeText('');
-  
+    
       robot.keyTap('c', 'control'); // Simulate Ctrl+C to copy the highlighted text
-  
+    
       let clipboardContent = '';
-  
+    
+      // Add a loop to wait for the clipboard content to be updated
       // Add a loop to wait for the clipboard content to be updated
       while (!clipboardContent) {
         await new Promise((resolve) => setTimeout(resolve, 100));
-        clipboardContent = clipboard.readText();
+          clipboardContent = clipboard.readText();
       }
-  
+
+// Add a small delay before performing the translation
+      
+    
       if (win) {
-        const translatedText = await translateText(clipboardContent, 'auto', 'en');
+        const translatedText = await translateText(clipboardContent, 'auto', targetLanguage);
         win.webContents.send('displayText', translatedText);
+        
+        // Get the mouse position and set the window position accordingly
+        const { x, y } = getMousePosition();
+        win.setPosition(x, y);
+        
         win.show();
       }
     });

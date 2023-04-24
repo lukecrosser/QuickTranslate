@@ -6,3 +6,9 @@
     background-color: transparent;
     color: hsla(var(--bc) / var(--tw-text-opacity, 1));
 }
+
+.select-ghost:focus {
+    --tw-bg-opacity: 1;
+    --tw-text-opacity: 1;
+    color: white;
+}

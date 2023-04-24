@@ -10,8 +10,8 @@
       #drag-region {
       position: absolute;
       top: 0;
-      left: 150px;
-      width: 55%;
+      left: 300px;
+      width: calc(100% - 360px);
       height: 50px;
       -webkit-app-region: drag;
     }
@@ -24,9 +24,7 @@
     </style>
     
     <ul class="menu bg-secondary menu-horizontal w-auto flex flex-row rounded-box text-secondary-content max-w-none">
-      <li>
-        <title>QuickTranslate</title>
-      </li>
+      
       <li>
         <a>
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
@@ -43,22 +41,28 @@
         </a>
       </li>
 
+      <li class="flex items-center">
+      <select class="select select-ghost w-36 max-w-xs" id="languageSelect">
+        <option disabled selected>Language</option>
+        <option>English</option>
+        <option>Japanese</option>
+      </select>
+      </li>
+
       <li class="ml-auto">
         <a id="closeButton">
           <svg class="swap-on fill-current" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512"><polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49"/></svg>
         </a>
       </li>
     </ul>
+      
     <div id="drag-region"></div>
-
+    
     <div class="flex w-full flex-row">
-      <div class="inline-flex flex-grow h-72 card bg-base-300 rounded-box place-items-center">
-        <select class="select select-primary w-full max-w-xs">
-          <option disabled selected>Translate To:</option>
-          <option>English</option>
-
-        </select>
-        <pre class="text-white scrollable-pre" id="display"></pre>
+      <div class="inline-flex flex-grow h-72 card bg-gray-800 rounded-box place-items-center">
+        
+        <pre placeholder="Text goes here" class="text-white scrollable-pre p-4" id="display"></pre>
+        
       </div> 
 
     <script src="renderer.js"></script>

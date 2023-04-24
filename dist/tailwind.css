@@ -1708,6 +1708,12 @@ html {
   --tw-backdrop-sepia:  ;
 }
 
+.avatar.placeholder > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -2209,13 +2215,14 @@ html {
   outline-offset: 2px;
 }
 
-.select-primary {
-  --tw-border-opacity: 1;
-  border-color: hsl(var(--p) / var(--tw-border-opacity));
+.select-ghost {
+  --tw-bg-opacity: 0.05;
 }
 
-.select-primary:focus {
-  outline: 2px solid hsl(var(--p));
+.select-ghost:focus {
+  --tw-bg-opacity: 1;
+  --tw-text-opacity: 1;
+  color: hsl(var(--bc) / var(--tw-text-opacity));
 }
 
 .select-disabled,
@@ -2367,6 +2374,10 @@ html {
   height: 18rem;
 }
 
+.w-36 {
+  width: 9rem;
+}
+
 .w-5 {
   width: 1.25rem;
 }
@@ -2399,13 +2410,17 @@ html {
   place-items: center;
 }
 
+.items-center {
+  align-items: center;
+}
+
 .overflow-hidden {
   overflow: hidden;
 }
 
-.bg-base-300 {
+.bg-gray-800 {
   --tw-bg-opacity: 1;
-  background-color: hsl(var(--b3, var(--b2)) / var(--tw-bg-opacity));
+  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
 }
 
 .bg-secondary {
@@ -2415,6 +2430,10 @@ html {
 
 .fill-current {
   fill: currentColor;
+}
+
+.p-4 {
+  padding: 1rem;
 }
 
 .text-secondary-content {
@@ -2430,4 +2449,10 @@ html {
 :root{
   background-color: transparent;
   color: hsla(var(--bc) / var(--tw-text-opacity, 1));
+}
+
+.select-ghost:focus {
+  --tw-bg-opacity: 1;
+  --tw-text-opacity: 1;
+  color: white;
 }
