@@ -1,0 +1,39 @@
+{
+  "name": "quicktranslate",
+  "version": "1.0.0",
+  "description": "quicktranslater",
+  "main": "main.js",
+  "scripts": {
+    "build:css": "tailwindcss build tailwind.css -o dist/tailwind.css",
+    "serve:css": "live-server --port=8181 --no-browser .",
+    "start": "npm run build:css && electron-forge start",
+    "rebuild": "electron-rebuild",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "keywords": [],
+  "author": "luodog",
+  "license": "ISC",
+  "dependencies": {
+    "clipboardy": "^3.0.0",
+    "daisyui": "^2.51.5",
+    "electron-squirrel-startup": "^1.0.0",
+    "node-key-sender": "^1.0.11",
+    "robotjs": "^0.6.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.1.1",
+    "@electron-forge/maker-deb": "^6.1.1",
+    "@electron-forge/maker-rpm": "^6.1.1",
+    "@electron-forge/maker-squirrel": "^6.1.1",
+    "@electron-forge/maker-zip": "^6.1.1",
+    "autoprefixer": "^10.4.14",
+    "electron": "^24.1.2",
+    "electron-rebuild": "^3.2.9",
+    "electron-reloader": "^1.2.3",
+    "postcss": "^8.4.23",
+    "postcss-loader": "^7.2.4",
+    "tailwindcss": "^3.3.1"
+  }
+}
