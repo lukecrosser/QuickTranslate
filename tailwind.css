@@ -2,3 +2,7 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+:root{
+    background-color: transparent;
+    color: hsla(var(--bc) / var(--tw-text-opacity, 1));
+}

@@ -1,5 +1,6 @@
-const { app, BrowserWindow, globalShortcut, clipboard } = require('electron');
+const { app, BrowserWindow, globalShortcut, clipboard, ipcMain } = require('electron');
 const robot = require('robotjs');
+
 
 try {
   require('electron-reloader')(module);
@@ -8,17 +9,27 @@ try {
 
 let win;
 
+//close button
+ipcMain.on('close-app', () => {
+  win.close();
+});
+
+app.disableHardwareAcceleration();
+
 function createWindow() {
   win = new BrowserWindow({
-    width: 800,
-    height: 500,
+    width: 500,
+    height: 350,
     show: false,
-    titleBarStyle: 'hidden',
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
     },
+    transparent: true,
+    frame: false,
+    backgroundColor: '#00000000', // Add this line for a transparent background color
   });
+  
 
   win.loadFile('index.html');
 }
