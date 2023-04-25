@@ -1,7 +1,32 @@
-const { app, BrowserWindow, globalShortcut, clipboard, ipcMain } = require('electron');
+const { app, BrowserWindow,  Tray, nativeImage, Menu, globalShortcut, clipboard, ipcMain } = require('electron');
 const robot = require('robotjs');
 const fetch = require('node-fetch');
+const AutoLaunch = require('auto-launch');
+const settings = require('electron-settings');
+const path = require('path');
 
+let tray;
+
+// Check if the auto-launch setting exists; if not, set it to true by default
+if (!settings.has('autoLaunch')) {
+  settings.set('autoLaunch', true);
+}
+
+const autoLauncher = new AutoLaunch({
+  name: 'QuickTranslate',
+  path: app.getPath('exe'),
+  isHidden: true,
+});
+
+autoLauncher.isEnabled().then((isEnabled) => {
+  const autoLaunch = settings.get('autoLaunch');
+
+  if (isEnabled && !autoLaunch) {
+    autoLauncher.disable();
+  } else if (!isEnabled && autoLaunch) {
+    autoLauncher.enable();
+  }
+});
 
 try {
   require('electron-reloader')(module);
@@ -16,7 +41,7 @@ let win;
 
 //close button
 ipcMain.on('close-app', () => {
-  win.close();
+  win.hide();
 });
 
 // Add this code after the 'close-app' listener in main.js
@@ -35,6 +60,40 @@ ipcMain.on('retranslate', async (_, text) => {
 
 app.disableHardwareAcceleration();
 
+function createTray() {
+  const trayIconPath = path.join(__dirname, 'qtlogo.png');
+ // Replace with your tray icon path
+
+  // Create a native image from the icon path
+  const trayIcon = nativeImage.createFromPath(trayIconPath);
+
+  tray = new Tray(trayIcon);
+
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: 'Open',
+      click: () => {
+        win.show();
+      },
+    },
+    {
+      label: 'Quit',
+      click: () => {
+        app.quit();
+      },
+    },
+  ]);
+
+  tray.setToolTip('QuickTranslate');
+  tray.setContextMenu(contextMenu);
+
+  tray.on('double-click', () => {
+    win.show();
+  });
+}
+
+const appIconPath = path.join(__dirname, 'qtlogo.png');
+
 function createWindow() {
   win = new BrowserWindow({
     width: 500,
@@ -46,7 +105,8 @@ function createWindow() {
     },
     transparent: true,
     frame: false,
-    backgroundColor: '#00000000', // Add this line for a transparent background color
+    backgroundColor: '#00000000',
+    icon: appIconPath, // Add this line for a transparent background color
   });
   
 
@@ -82,7 +142,7 @@ async function translateText(inputText, from, to) {
 
 app.whenReady().then(() => {
     createWindow();
-
+    createTray();
   
     
     const shortcut = 'Control+Q';
@@ -131,7 +191,5 @@ app.on('will-quit', () => {
 });
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
+  
 });

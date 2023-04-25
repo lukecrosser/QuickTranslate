@@ -9,8 +9,12 @@ function addInfoButtonListener() {
 }
 
 ipcRenderer.on('displayText', (_, text) => {
-  document.getElementById('display').textContent = text;
+  const displayElement = document.getElementById('display');
+  if (displayElement) {
+    displayElement.textContent = text;
+  }
 });
+
 
 function addCloseButtonListener() {
   document.getElementById('closeButton').addEventListener('click', () => {

@@ -1794,6 +1794,19 @@ html {
   width: 100%;
 }
 
+.label {
+  display: flex;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
 .input-group > *,
   .input-group > .input,
   .input-group > .textarea,
@@ -1936,6 +1949,11 @@ html {
   --tw-text-opacity: 0.2;
 }
 
+.btm-nav>* .label {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
 @keyframes button-pop {
   0% {
     transform: scale(var(--btn-focus-scale, 0.95));
@@ -2014,6 +2032,11 @@ html {
 
 .divider:not(:empty) {
   gap: 1rem;
+}
+
+.label a:hover {
+  --tw-text-opacity: 1;
+  color: hsl(var(--bc) / var(--tw-text-opacity));
 }
 
 .link:focus {

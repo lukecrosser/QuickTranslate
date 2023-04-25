@@ -10,15 +10,20 @@
     "rebuild": "electron-rebuild",
     "test": "echo \"Error: no test specified\" && exit 1",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "keywords": [],
   "author": "luodog",
   "license": "ISC",
   "dependencies": {
+    "auto-launch": "^5.0.5",
     "clipboardy": "^3.0.0",
     "daisyui": "^2.51.5",
+    "electron-settings": "^4.0.2",
     "electron-squirrel-startup": "^1.0.0",
+    "node-fetch": "^2.6.6",
     "node-key-sender": "^1.0.11",
     "robotjs": "^0.6.0"
   },
@@ -30,10 +35,29 @@
     "@electron-forge/maker-zip": "^6.1.1",
     "autoprefixer": "^10.4.14",
     "electron": "^24.1.2",
+    "electron-builder": "^23.6.0",
     "electron-rebuild": "^3.2.9",
     "electron-reloader": "^1.2.3",
     "postcss": "^8.4.23",
     "postcss-loader": "^7.2.4",
     "tailwindcss": "^3.3.1"
+  },
+  "build": {
+    "appId": "world.luos.quicktranslate",
+    "productName": "QuickTranslate",
+    "directories": {
+      "output": "build"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "qtlogo.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": "always",
+      "runAfterFinish": true
+    }
   }
 }

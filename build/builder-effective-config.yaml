@@ -1,0 +1,16 @@
+directories:
+  output: build
+  buildResources: build
+appId: world.luos.quicktranslate
+productName: QuickTranslate
+win:
+  target: nsis
+  icon: qtlogo.png
+nsis:
+  oneClick: false
+  perMachine: true
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: always
+  runAfterFinish: true
+files: []
+electronVersion: 24.1.2
