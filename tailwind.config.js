@@ -5,6 +5,8 @@ module.exports = {
     // Add paths to your HTML and/or JS files that use Tailwind CSS classes
     'index.html',
     'main.js',
+    'info.html',
+    'main-page.html'
   ],
   darkMode: 'false',
 };

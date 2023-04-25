@@ -46,6 +46,8 @@
         <option disabled selected>Language</option>
         <option>English</option>
         <option>Japanese</option>
+        <option>Spanish</option>
+        <option>French</option>
       </select>
       </li>
 
@@ -57,13 +59,24 @@
     </ul>
       
     <div id="drag-region"></div>
+    <div class="page-container">
     
-    <div class="flex w-full flex-row">
+      <div id="main-page">
+        <div class="flex w-full flex-row">
       <div class="inline-flex flex-grow h-72 card bg-gray-800 rounded-box place-items-center">
-        
+    
         <pre placeholder="Text goes here" class="text-white scrollable-pre p-4" id="display"></pre>
         
       </div> 
+        
+        
+        <!-- Move the existing content of index.html inside the main-page div -->
+      </div>
+      <div id="info-page" style="display: none;">
+        <!-- The content of the info page will be loaded here -->
+      </div>
+    </div>
+    
 
     <script src="renderer.js"></script>
   </body>

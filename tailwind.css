@@ -10,5 +10,10 @@
 .select-ghost:focus {
     --tw-bg-opacity: 1;
     --tw-text-opacity: 1;
-    color: white;
+    color:white;
+    background-color: hsl(var(--s) / var(--tw-bg-opacity));
 }
+/*  
+select:focus {
+    background-color: hsl(var(--s) / var(--tw-bg-opacity));
+  }*/
