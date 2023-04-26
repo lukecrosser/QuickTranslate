@@ -1,5 +1,16 @@
 module.exports = {
-  packagerConfig: {},
+  packagerConfig: {
+    ignore: (filePath) => {
+      // List of folders to ignore
+      const foldersToIgnore = [
+        /installer-output/, // Replace folder1, folder2, folder3 with the actual folder names
+        /release-builds/, // Ignore the 'src' folder
+      ];
+
+      // Check if filePath matches any of the folders to ignore
+      return foldersToIgnore.some((pattern) => pattern.test(filePath));
+    },
+  },
   rebuildConfig: {},
   makers: [
     {

@@ -7,6 +7,62 @@ const path = require('path');
 
 let tray;
 
+// Require electron-squirrel-startup
+if (require('electron-squirrel-startup')) {
+  // If the function returns true, exit immediately
+  app.quit();
+}
+// Check and handle Squirrel events
+if (handleSquirrelEvents()) {
+  app.quit();
+}
+
+function handleSquirrelEvents() {
+  if (process.argv.length === 1) {
+    return false;
+  }
+
+  const ChildProcess = require('child_process');
+  const path = require('path');
+
+  const appFolder = path.resolve(process.execPath, '..');
+  const updateExe = path.resolve(path.join(appFolder, 'Update.exe'));
+  const exeName = path.basename(process.execPath);
+
+  const spawn = (command, args) => {
+    let spawnedProcess;
+    try {
+      spawnedProcess = ChildProcess.spawn(command, args, { detached: true });
+    } catch (error) {}
+
+    return spawnedProcess;
+  };
+
+  const spawnUpdate = (args) => {
+    return spawn(updateExe, args);
+  };
+
+  const squirrelEvent = process.argv[1];
+  switch (squirrelEvent) {
+    case '--squirrel-install':
+    case '--squirrel-updated':
+      // Create desktop and start menu shortcuts
+      spawnUpdate(['--createShortcut', exeName]);
+      setTimeout(app.quit, 1000);
+      return true;
+
+    case '--squirrel-uninstall':
+      // Remove desktop and start menu shortcuts
+      spawnUpdate(['--removeShortcut', exeName]);
+      setTimeout(app.quit, 1000);
+      return true;
+
+    case '--squirrel-obsolete':
+      app.quit();
+      return true;
+  }
+}
+
 // Check if the auto-launch setting exists; if not, set it to true by default
 if (!settings.has('autoLaunch')) {
   settings.set('autoLaunch', true);

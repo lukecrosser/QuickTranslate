@@ -1,3 +1,5 @@
 node_modules/
 out/
 !out/.gitkeep
+installer-output/
+release-builds/

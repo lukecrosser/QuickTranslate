@@ -2410,6 +2410,18 @@ html {
   position: absolute;
 }
 
+.left-0 {
+  left: 0px;
+}
+
+.top-0 {
+  top: 0px;
+}
+
+.ml-1 {
+  margin-left: 0.25rem;
+}
+
 .ml-auto {
   margin-left: auto;
 }
@@ -2521,6 +2533,11 @@ html {
 .px-8 {
   padding-left: 2rem;
   padding-right: 2rem;
+}
+
+.text-gray-400 {
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity));
 }
 
 .text-secondary-content {
