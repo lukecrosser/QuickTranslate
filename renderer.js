@@ -51,7 +51,7 @@ function loadContent(filename) {
 function addButtonListeners() {
   const homeButton = document.querySelector('.menu li:nth-child(1) a');
   const infoButton = document.querySelector('.menu li:nth-child(2) a');
-  const settingsButton = document.querySelector('.menu li:nth-child(3) a');
+  const settingsButton = document.querySelector('.settings-button');
 
   homeButton.addEventListener('click', () => {
     loadContent('main-page.html');
@@ -62,7 +62,7 @@ function addButtonListeners() {
   });
 
   settingsButton.addEventListener('click', () => {
-    loadContent('settings.html');
+    loadContent('settings.html' , 'settings.js');
   });
 }
 

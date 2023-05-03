@@ -196,12 +196,17 @@ async function translateText(inputText, from, to) {
 
 
 
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
     createWindow();
     createTray();
   
     
-    const shortcut = 'Control+Q';
+    let defaultShortcut = 'Control+Q';
+    const savedShortcut = await settings.get('shortcut');
+    const shortcut = savedShortcut || defaultShortcut;
+    console.log('Shortcut:', shortcut);
+
+
   
     globalShortcut.register(shortcut, async () => {
       clipboard.writeText('');

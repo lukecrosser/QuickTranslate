@@ -6,7 +6,8 @@ module.exports = {
     'index.html',
     'main.js',
     'info.html',
-    'main-page.html'
+    'main-page.html',
+    'settings.html'
   ],
   darkMode: 'false',
 };
