@@ -150,6 +150,7 @@ function createTray() {
 
 const appIconPath = path.join(__dirname, 'qtlogo.png');
 
+//main window
 function createWindow() {
   win = new BrowserWindow({
     width: 500,
@@ -194,7 +195,10 @@ async function translateText(inputText, from, to) {
 }
 
 
-
+ipcMain.on('update-shortcut', (event, newShortcut) => {
+  settings.set('shortcut', newShortcut);
+  console.log("hi")
+});
 
 app.whenReady().then(async () => {
     createWindow();
@@ -206,7 +210,7 @@ app.whenReady().then(async () => {
     const shortcut = savedShortcut || defaultShortcut;
     console.log('Shortcut:', shortcut);
 
-
+  
   
     globalShortcut.register(shortcut, async () => {
       clipboard.writeText('');

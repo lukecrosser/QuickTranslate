@@ -35,12 +35,20 @@ function languageSelectionListener() {
   });
 }
 
-function loadContent(filename) {
+function loadContent(filename, jsFilename) {
   fetch(filename)
     .then((response) => response.text())
     .then((html) => {
       const pageContainer = document.querySelector('.page-container');
       pageContainer.innerHTML = html;
+
+      // Load the associated JavaScript file if provided
+      if (jsFilename) {
+        const scriptElement = document.createElement('script');
+        scriptElement.src = jsFilename;
+        scriptElement.type = 'text/javascript';
+        pageContainer.appendChild(scriptElement);
+      }
     })
     .catch((error) => {
       console.warn('Error loading content:', error);
@@ -62,7 +70,7 @@ function addButtonListeners() {
   });
 
   settingsButton.addEventListener('click', () => {
-    loadContent('settings.html' , 'settings.js');
+    loadContent('settings.html', 'settings.js');
   });
 }
 
