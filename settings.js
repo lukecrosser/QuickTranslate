@@ -1,6 +1,7 @@
 const keybindInput = document.getElementById('keybind');
 const setKeybindButton = document.getElementById('setKeybind');
 const keypressDisplay = document.getElementById('keypressDisplay');
+const settings = require('electron-settings');
 
 
 function handleKeydown(e) {
