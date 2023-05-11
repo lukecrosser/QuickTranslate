@@ -2,7 +2,6 @@ const keybindInput = document.getElementById('keybind');
 const setKeybindButton = document.getElementById('setKeybind');
 const keypressDisplay = document.getElementById('keypressDisplay');
 
-console.log("hi");
 
 function handleKeydown(e) {
   e.preventDefault();

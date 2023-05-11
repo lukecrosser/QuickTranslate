@@ -195,51 +195,52 @@ async function translateText(inputText, from, to) {
 }
 
 
-ipcMain.on('update-shortcut', (event, newShortcut) => {
+ipcMain.on('update-shortcut', async (event, newShortcut) => {
   settings.set('shortcut', newShortcut);
-  console.log("hi")
+  console.log("shortcut set my brotha" + newShortcut)
+  await registerShortcut(newShortcut);
 });
+
+async function registerShortcut(shortcut) {
+  globalShortcut.unregisterAll(); // Unregister the current shortcut
+
+  globalShortcut.register(shortcut, async () => {
+    clipboard.writeText('');
+
+    robot.keyTap('c', 'control'); // Simulate Ctrl+C to copy the highlighted text
+
+    let clipboardContent = '';
+
+    while (!clipboardContent) {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+      clipboardContent = clipboard.readText();
+    }
+
+    if (win) {
+      const translatedText = await translateText(clipboardContent, 'auto', targetLanguage);
+      win.webContents.send('displayText', translatedText);
+
+      const { x, y } = getMousePosition();
+      win.setPosition(x, y);
+
+      win.show();
+    }
+  });
+}
+
 
 app.whenReady().then(async () => {
     createWindow();
     createTray();
-  
+    
     
     let defaultShortcut = 'Control+Q';
     const savedShortcut = await settings.get('shortcut');
     const shortcut = savedShortcut || defaultShortcut;
     console.log('Shortcut:', shortcut);
 
-  
-  
-    globalShortcut.register(shortcut, async () => {
-      clipboard.writeText('');
-    
-      robot.keyTap('c', 'control'); // Simulate Ctrl+C to copy the highlighted text
-    
-      let clipboardContent = '';
-    
-      // Add a loop to wait for the clipboard content to be updated
-      // Add a loop to wait for the clipboard content to be updated
-      while (!clipboardContent) {
-        await new Promise((resolve) => setTimeout(resolve, 100));
-          clipboardContent = clipboard.readText();
-      }
+    await registerShortcut(shortcut);
 
-// Add a small delay before performing the translation
-      
-    
-      if (win) {
-        const translatedText = await translateText(clipboardContent, 'auto', targetLanguage);
-        win.webContents.send('displayText', translatedText);
-        
-        // Get the mouse position and set the window position accordingly
-        const { x, y } = getMousePosition();
-        win.setPosition(x, y);
-        
-        win.show();
-      }
-    });
      // Add a small delay to give the system time to copy the text to the clipboard
 
   
