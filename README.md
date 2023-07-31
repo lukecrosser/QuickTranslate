@@ -7,7 +7,7 @@ Quick Translate will seamlessly translate any text you select on your computer s
 
 ![image](https://github.com/lukecrosser/QuickTranslate/assets/64517117/2e89d3dc-374b-4729-9a0c-58a76974613a)
 
-Currently only supports English, Japanese, Spanish, French, and Korean. 
+Currently only supports translation to English, Japanese, Spanish, French, and Korean but it will translate all languages supported with google translate.
 
 ## How to Install
 
