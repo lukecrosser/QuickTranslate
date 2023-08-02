@@ -15,4 +15,4 @@ Currently only supports translation to English, Japanese, Spanish, French, and K
 
 **Step 2**: Unpack the zip folder and run quicktranslate.exe 
 
-**Step 3**: Quick Translate will ruin in your taskbar. The default hotkey is Ctrl+T
+**Step 3**: Quick Translate will run in your taskbar. The default hotkey is Ctrl+T
